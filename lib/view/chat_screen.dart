@@ -68,8 +68,20 @@ class _chat_screen extends State<Chat_screen> {
       appBar: AppBar(
         leading:
         Container(
-          padding: EdgeInsets.only(left: 30, bottom: 75.5),
-          child: Image.asset("images/back.png",),
+          // color: Colors.red,
+          margin: EdgeInsets.only(left: 20,bottom: 42),
+          child: TextButton(
+            onPressed: (){
+              if (count == 1) {
+                Navigator.pop(context);
+
+              }
+            },
+            child: Container(
+              // width: 20,
+              child: Image.asset("images/back.png",),
+            )
+          )
         ),
         // actions: [
         //   IconButton(onPressed: (){}, icon: Image.asset("images/back.png")),
@@ -96,304 +108,200 @@ class _chat_screen extends State<Chat_screen> {
         ),
       ),
 
-      body: Stack(
-        children: <Widget>[
-          Container(
-            width: width,
-            height: height,
-            color: App_colors.navBackground,
-          ),
-          ListView.builder(
-            controller: _scrollController,
-            itemCount: anzArray.length,
-            itemBuilder: (context, index) {
-              return Container(
-                color: App_colors.navBackground,
-                child: Column(
-                  children: [
-                    SizedBox(height: 8,),
-                    Container(
-                      margin: EdgeInsets.only(left: 24, right: 24),
-                      height: 57,
-                      color: App_colors.navBackground,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: width - 48,
-                            child:Text(anzArray[index], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: "inter",color: Color(0xffFFFFFF)), maxLines: 2, overflow: TextOverflow.ellipsis,),
-                          ),
-                        ],
-                      ),
-
-                      ),
-
-
-                    ],
-                  ),
-                );
-              }
-              ),
-
-
-          Align(
-              alignment: Alignment.bottomLeft,
-              child:
-              Container(
-                  alignment: AlignmentDirectional.centerEnd,
-                  height: 200,
-                  color: App_colors.navBackground,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 24, right: 24),
-                        height: 54, color: App_colors.navBackground, child: Row(
-                        children: [
-                          SizedBox(
-                              width: width - 48,
-                              child:
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Row (
-                                  children: [
-                                    const Spacer(),
-                                    Image.asset("images/typing4.gif"),
-                                  ],
-                                ),
-                              )
-                          )
-                        ],
-                      ),
-                      ),
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(padding: EdgeInsets.only(left: 24),
-                            child: Text(placeHolder, style: TextStyle(color: Colors.white),),
-                          )
-                      ),
-
-                      Divider(color: Colors.white,),
-                      Stack(
-                        alignment: AlignmentDirectional.centerEnd,
-                        children: [
-                          TextField(
-                            controller: txtController,
-                            keyboardType: textBoardType,
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              // border: OutlineInputBorder(),
-                              // suffixIcon: IconButton(onPressed: (){
-                              //   txtController.clear();
-                              // }
-                              // , icon: Icon(Icons.clear),),
-                              contentPadding: EdgeInsets.all(24.0),
-                            ),
-                            onChanged: (s) {
-                              var bool = validateEmail(s);
-                              if (bool) {
-                                setState(() {
-                                  isEmail = true;
-                                });
-
-                              } else {
-                                setState(() {
-                                  isEmail = false;
-                                });
-                              }
-                              if (s.isEmpty) {
-                                setState(() {
-                                  isEmail = true;
-                                });
-                              }
-                            },
+      body: new GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: width,
+              height: height,
+              color: App_colors.navBackground,
+            ),
+            ListView.builder(
+                controller: _scrollController,
+                itemCount: anzArray.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    color: App_colors.navBackground,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 8,),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24),
+                          height: 57,
+                          color: App_colors.navBackground,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: width - 48,
+                                child:Text(anzArray[index], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: "inter",color: Color(0xffFFFFFF)), maxLines: 2, overflow: TextOverflow.ellipsis,),
+                              ),
+                            ],
                           ),
 
-                          Visibility(
-                            visible: isEmail,
-                              child: TextButton(
-                              onPressed: (){
-                                setState(() {
-                                  if (count < 2){
-                                    if (count == 0) {
-                                      anzArray.add(txtController.text);
-                                      count++;
-                                      txtController.clear();
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Chat_screen(collectedChatArray: anzArray, count: count,)));
-                                    } else if (count == 1) {
-                                      anzArray.add(txtController.text);
-                                      txtController.clear();
-                                      count++;
-                                    }
+                        ),
 
 
+                      ],
+                    ),
+                  );
+                }
+            ),
 
-                                  }
-                                  // anzArray.add(quizArray[count]);
-                                  // anzArray.add(txtController.text);
-                                  // count++;
-                                });
-                              },
-                              child: Image.asset("images/send.png", color: Colors.white)
-                          )),
 
-                          Visibility(
-                              visible: !isEmail,
-                              child: TextButton(
-                                  onPressed: (){
+            Align(
+                alignment: Alignment.bottomLeft,
+                child:
+                Container(
+                    alignment: AlignmentDirectional.centerEnd,
+                    height: 200,
+                    color: App_colors.navBackground,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24),
+                          height: 54, color: App_colors.navBackground, child: Row(
+                          children: [
+                            SizedBox(
+                                width: width - 48,
+                                child:
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Row (
+                                    children: [
+                                      const Spacer(),
+                                      Image.asset("images/typing4.gif"),
+                                    ],
+                                  ),
+                                )
+                            )
+                          ],
+                        ),
+                        ),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(padding: EdgeInsets.only(left: 24),
+                              child: Text(placeHolder, style: TextStyle(color: Colors.white),),
+                            )
+                        ),
+
+                        Divider(color: Colors.white,),
+                        Stack(
+                          alignment: AlignmentDirectional.centerEnd,
+                          children: [
+                            TextField(
+                              controller: txtController,
+                              keyboardType: textBoardType,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                // border: OutlineInputBorder(),
+                                // suffixIcon: IconButton(onPressed: (){
+                                //   txtController.clear();
+                                // }
+                                // , icon: Icon(Icons.clear),),
+                                contentPadding: EdgeInsets.all(24.0),
+                              ),
+                              onChanged: (s) {
+                                var bool = validateEmail(s);
+                                if (bool) {
+                                  setState(() {
+                                    isEmail = true;
+                                  });
+
+                                } else {
+                                  setState(() {
+                                    isEmail = false;
+                                  });
+                                }
+                                if (s.isEmpty) {
+                                  setState(() {
+                                    isEmail = true;
+                                  });
+                                }
+
+                                if (count == 1) {
+                                  if (txtController.text.length == 10) {
                                     setState(() {
-                                      if (count < 2){
-                                        if (count == 0) {
-                                          anzArray.add(txtController.text);
-                                          count++;
-                                          txtController.clear();
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Chat_screen(collectedChatArray: anzArray, count: count,)));
-                                        } else if (count == 1) {
-                                          anzArray.add(txtController.text);
-                                          txtController.clear();
-                                          count++;
-                                        }
-
-
-
-                                      }
-                                      // anzArray.add(quizArray[count]);
-                                      // anzArray.add(txtController.text);
-                                      // count++;
+                                      isEmail =  true;
                                     });
-                                  },
-                                  child: Image.asset("images/cancel.png", color: Colors.red)
-                              ))
-                        ],
-                      )
-                    ],
-                  )
+                                  } else {
+                                    setState(() {
+                                      isEmail =  false;
+                                    });
+                                  }
+                                }
 
-              )
-          )
+                              },
+                            ),
 
-        ],
-      ),
-
-
-
-
-
-
-
-
-      // body: Stack(
-      //   children: [
-      //     Container(
-      //       width: width,
-      //       height: height,
-      //       color: App_colors.navBackground,
-      //     ),
-      //     Container(
-      //       child: SingleChildScrollView(
-      //         child: Column(
-      //           children:<Widget> [
-      //             SizedBox(height: 8,),
-      //             Container(
-      //               margin: EdgeInsets.only(left: 24, right: 24),
-      //               height: 57, color: App_colors.navBackground, child: Row(
-      //               children: [
-      //                 SizedBox(
-      //                   width: width - 48,
-      //                   child:Text("Nice to meet you BenjaminWhat is your email? ✉️", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: "inter",color: Color(0xffFFFFFF)), maxLines: 2, overflow: TextOverflow.ellipsis,),
-      //                   )
-      //                 ],
-      //               ),
-      //             ),
-      //
-      //             SizedBox(height: 10,), //TODO: remove this line
-      //             Container(
-      //               margin: EdgeInsets.only(left: 24, right: 24),
-      //               height: 54, color: App_colors.navBackground, child: Row(
-      //               children: [
-      //                 SizedBox(
-      //                     width: width - 48,
-      //                     child:
-      //                     Align(
-      //                       alignment: Alignment.centerRight,
-      //                       child: Row (
-      //                         children: [
-      //                           const Spacer(),
-      //                           Image.asset("images/typing.gif"),
-      //                         ],
-      //                       ),
-      //                     )
-      //                 )
-      //               ],
-      //             ),
-      //             ),
-      //
-      //
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //             SizedBox(height: 10,),
-      //             Container(height: 100, color: Colors.yellowAccent,),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //     Align(
-      //       alignment: Alignment.bottomLeft,
-      //       child:
-      //       Container(
-      //         alignment: AlignmentDirectional.centerEnd,
-      //         height: 100,
-      //         color: App_colors.navBackground,
-      //         child: Column(
-      //           children: [
-      //             Align(
-      //               alignment: Alignment.centerLeft,
-      //               child: Container(padding: EdgeInsets.only(left: 24),child: Text("datadfdfdfgdfgd", style: TextStyle(color: Colors.red),),)
-      //             ),
-      //             Divider(color: Colors.white,),
-      //             Stack(
-      //               alignment: AlignmentDirectional.centerEnd,
-      //               children: [
-      //                 TextField(
-      //                   controller: txtController,
-      //                   style: TextStyle(
-      //                     color: Colors.white,
-      //                   ),
-      //                   decoration: InputDecoration(
-      //                       // border: OutlineInputBorder(),
-      //                       suffixIcon: IconButton(onPressed: (){
-      //                         txtController.clear();
-      //                       }, icon: Icon(Icons.clear),),
-      //                       contentPadding: EdgeInsets.all(24.0),
-      //                   ),
-      //                 ),
-      //
-      //                 TextButton(
-      //                     onPressed: (){},
-      //                     child: Image.asset("images/send.png", color: Colors.white))
-      //               ],
-      //             )
-      //           ],
-      //         )
-      //
-      //       )
-      //     )
-      //   ],
-      // ),
+                            Visibility(
+                                visible: isEmail,
+                                child: TextButton(
+                                    onPressed: (){
+                                      setState(() {
+                                        if (count < 2){
+                                          if (count == 0) {
+                                            anzArray.add(txtController.text);
+                                            count++;
+                                            txtController.clear();
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> Chat_screen(collectedChatArray: anzArray, count: count,)));
+                                          } else if (count == 1) {
+                                            anzArray.add(txtController.text);
+                                            txtController.clear();
+                                            count++;
+                                          }
 
 
+
+                                        }
+                                        // anzArray.add(quizArray[count]);
+                                        // anzArray.add(txtController.text);
+                                        // count++;
+                                      });
+                                    },
+                                    child: Image.asset("images/send.png", color: Colors.white)
+                                )),
+
+                            Visibility(
+                                visible: !isEmail,
+                                child: TextButton(
+                                    onPressed: (){
+                                      setState(() {
+                                        if (count < 2){
+                                          if (count == 0) {
+                                            anzArray.add(txtController.text);
+                                            count++;
+                                            txtController.clear();
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> Chat_screen(collectedChatArray: anzArray, count: count,)));
+                                          } else if (count == 1) {
+                                            anzArray.add(txtController.text);
+                                            txtController.clear();
+                                            count++;
+                                          }
+
+                                        }
+                                        // anzArray.add(quizArray[count]);
+                                        // anzArray.add(txtController.text);
+                                        // count++;
+                                      });
+                                    },
+                                    child: Image.asset("images/cancel.png", color: Colors.red)
+                                ))
+                          ],
+                        )
+                      ],
+                    )
+
+                )
+            )
+
+          ],
+        ),
+      )
 
     );
   }

@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const Chat_screen(),
+        debugShowCheckedModeBanner: false,
       );
       // GraphQLProvider(
       //   client: client,
